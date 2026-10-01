@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Hourglass Press</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ink-veil" aria-hidden="true"></div>
+  <header class="masthead">
+    <div class="rule"></div>
+    <p class="eyebrow"><span id="clock">—</span><span class="dot"> · </span>Vol. I · Living edition</p>
+    <h1 class="wordmark"><span>The</span> Hourglass Press</h1>
+    <p class="deck">A small magazine that changes its mind every hour. Members keep a private desk. Anything marked public walks out onto the street.</p>
+    <nav>
+      <button data-go="front" class="on">Front</button>
+      <button data-go="street">The Street</button>
+      <button data-go="desk">Your Desk</button>
+      <button data-go="door" id="nav-door">The Door</button>
+    </nav>
+    <div class="rule thick"></div>
+  </header>
+  <main>
+    <section id="view-front" class="view show">
+      <article class="edition" id="edition">
+        <p class="kicker" id="ed-kicker">Loading the hour…</p>
+        <h2 id="ed-headline"></h2>
+        <p class="lede" id="ed-lede"></p>
+        <p class="feature-chip">This hour’s feature · <em id="ed-feature"></em></p>
+        <p class="body" id="ed-body"></p>
+      </article>
+      <aside class="hour-rail" id="hour-rail"></aside>
+    </section>
+    <section id="view-street" class="view">
+      <header class="section-head"><h2>The Street</h2><p>Public slips from people who decided the room could hear them.</p></header>
+      <div id="street-list" class="card-list"></div>
+    </section>
+    <section id="view-desk" class="view">
+      <header class="section-head"><h2>Your Desk</h2><p>Saved here. Flip public when you want it on the street.</p></header>
+      <form id="note-form" class="note-form hidden">
+        <label>Title<input name="title" maxlength="120" required /></label>
+        <label>Slip<textarea name="body" rows="7" required></textarea></label>
+        <label class="check"><input type="checkbox" name="is_public" /> Mark public — show it on the street</label>
+        <button type="submit">File this slip</button>
+      </form>
+      <p id="desk-gate" class="gate">You need a key. Open <button type="button" data-go="door">the door</button>.</p>
+      <div id="desk-list" class="card-list"></div>
+    </section>
+    <section id="view-door" class="view">
+      <header class="section-head"><h2>The Door</h2><p>Email and a password. Sessions persist.</p></header>
+      <div id="signed-out">
+        <form id="auth-form" class="auth-form">
+          <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+          <label>Password<input type="password" name="password" required minlength="8" autocomplete="current-password" /></label>
+          <label>Handle <span class="hint">(for new keys)</span><input name="handle" maxlength="24" pattern="[a-z0-9_]{3,24}" placeholder="ink_mouse" /></label>
+          <div class="row">
+            <button type="submit" data-mode="in">Let me in</button>
+            <button type="submit" data-mode="up" class="ghost">Cut a new key</button>
+          </div>
+          <p class="form-msg" id="auth-msg"></p>
+        </form>
+      </div>
+      <div id="signed-in" class="hidden">
+        <p class="welcome">You are <strong id="who"></strong>.</p>
+        <button id="sign-out" class="ghost">Leave the building</button>
+      </div>
+    </section>
+  </main>
+  <footer><p>Printed in the browser · Reset on the hour</p></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./hours.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
